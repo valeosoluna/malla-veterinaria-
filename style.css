@@ -1,8 +1,9 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
+    background-color: #f4f7f6;
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -13,76 +14,249 @@ body {
     background-color: #fff;
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 95%;
     max-width: 1200px;
 }
 
-h1 {
+header {
     text-align: center;
-    color: #333;
     margin-bottom: 30px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 20px;
 }
 
-#malla-curricular {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.semester {
-    background-color: #e0e0e0; /* Light grey background for semesters */
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 250px; /* Adjust width as needed */
-    flex-shrink: 0;
-}
-
-.semester h2 {
-    text-align: center;
-    color: #555;
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.2em;
-}
-
-.course {
-    background-color: #a8d672; /* Green for not approved, similar to the image */
-    color: #333;
-    padding: 10px;
+header h1 {
+    color: #1a2a4b; /* Dark blue from the university logo */
     margin-bottom: 10px;
+}
+
+.progress-bar-container {
+    width: 80%;
+    margin: 20px auto 0;
+    text-align: left;
+}
+
+.progress-text {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #e0e0e0;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, text-decoration 0.3s ease;
-    text-align: center;
-    border: 1px solid #ddd;
-    position: relative; /* For the locked icon */
-    font-size: 0.9em; /* Adjust font size to fit more text if needed */
+    height: 20px;
+    overflow: hidden;
 }
 
-.course:last-child {
-    margin-bottom: 0;
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background-color: #4CAF50; /* Green for progress */
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out;
 }
 
-.course.approved {
-    background-color: #ff6347; /* Red for approved */
-    color: #fff;
-    text-decoration: line-through;
+/* **CAMBIOS PRINCIPALES APLICADOS AQUÍ PARA LA ESTRUCTURA** */
+#curriculum-grid {
+    display: flex; /* Usamos flexbox para los años */
+    flex-direction: column; /* Apilar años verticalmente */
+    gap: 30px; /* Espacio entre los bloques de año */
 }
 
-.course.locked {
-    background-color: #cccccc; /* Grey for locked */
-    color: #666;
-    cursor: not-allowed;
+.year-block {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #1a2a4b;
+    text-align: left;
+    padding-left: 10px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
 }
 
-.course.locked::after {
-    content: '🔒'; /* Lock icon */
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
+.semesters-in-year-container {
+    display: flex; /* Usamos flexbox para los semestres dentro de un año */
+    gap: 20px; /* Espacio entre los bloques de semestre */
+    flex-wrap: wrap; /* Permitir que los semestres se envuelvan a la siguiente línea si no caben */
+    justify-content: flex-start; /* Alinear los semestres al inicio */
+}
+
+.semester-container {
+    flex: 1; /* Permitir que cada semestre ocupe el espacio disponible */
+    min-width: 200px; /* Ancho mínimo para cada bloque de semestre */
+    max-width: 250px; /* Ancho máximo para cada bloque de semestre, similar al de la imagen */
+    padding: 15px;
+    background-color: #f0f0f0; /* Fondo ligero para cada bloque de semestre */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.semester-title {
     font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.courses-container {
+    display: grid; /* Usamos grid para los cursos dentro de cada semestre */
+    grid-template-columns: 1fr; /* Una columna por defecto */
+    gap: 10px; /* Espacio entre los cursos */
+}
+
+.course-card {
+    background-color: #e0f2f7; /* Light blue default, similar to your image */
+    border: 1px solid #b3e5fc;
+    border-radius: 6px;
+    padding: 10px; /* Reducido para que quepan más */
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    width: auto; /* Ajuste automático dentro del grid */
+    min-height: 70px; /* Reducido para que quepan más */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    font-size: 0.85em; /* Reducido un poco la fuente */
+    line-height: 1.2;
+    font-weight: bold;
+    position: relative;
+}
+
+.course-card:hover:not(.locked) {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Category-specific colors (based on your image's legend colors) */
+.category-humanidades { background-color: #d1c4e9; border-color: #9575cd; } /* Purple */
+.category-politica-gestion { background-color: #81d4fa; border-color: #29b6f6; } /* Light Blue */
+.category-familia-acompanamiento { background-color: #ffe0b2; border-color: #ffb74d; } /* Orange */
+.category-practica { background-color: #f8bbd0; border-color: #f06292; } /* Pink */
+.category-fundamentos { background-color: #c8e6c9; border-color: #81c784; } /* Green */
+.category-investigacion { background-color: #b3e5fc; border-color: #4fc3f7; } /* Sky Blue */
+.category-curriculo-didactica { background-color: #ffccbc; border-color: #ff8a65; } /* Light Orange */
+.category-electivo { background-color: #ffecb3; border-color: #ffd54f; } /* Yellow */
+
+
+/* Approved state */
+.course-card.approved {
+    background-color: #ffab91; /* Orange from example */
+    border-color: #ff8a65;
+    text-decoration: line-through;
+    color: #666;
+    cursor: default;
+    box-shadow: none;
+}
+
+/* Locked state */
+.course-card.locked {
+    background-color: #eeeeee; /* Grey from example */
+    border-color: #cccccc;
+    color: #999999;
+    cursor: not-allowed;
+    pointer-events: none; /* Disable click events */
+}
+
+/* Legend styling */
+.legend {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    width: fit-content;
+}
+
+.legend h2 {
+    color: #1a2a4b;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.legend ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+.legend li {
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Specific legend item colors */
+.legend .category-humanidades { background-color: #d1c4e9; }
+.legend .category-politica-gestion { background-color: #81d4fa; }
+.legend .category-familia-acompanamiento { background-color: #ffe0b2; }
+.legend .category-practica { background-color: #f8bbd0; }
+.legend .category-fundamentos { background-color: #c8e6c9; }
+.legend .category-investigacion { background-color: #b3e5fc; }
+.legend .category-curriculo-didactica { background-color: #ffccbc; }
+.legend .category-electivo { background-color: #ffecb3; }
+.legend .status-approved { background-color: #ffab91; }
+.legend .status-unapproved { background-color: #e0f2f7; }
+.legend .status-locked { background-color: #eeeeee; }
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .semesters-in-year-container {
+        flex-direction: column; /* Apilar los semestres verticalmente en pantallas más pequeñas */
+        align-items: center; /* Centrar los bloques de semestre */
+    }
+
+    .semester-container {
+        min-width: 90%; /* Hacer que los bloques de semestre sean más anchos */
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .year-block {
+        font-size: 1.5em;
+    }
+
+    .semester-title {
+        font-size: 1.1em;
+    }
+
+    .course-card {
+        font-size: 0.8em;
+        min-height: 60px;
+    }
+
+    .legend ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .course-card {
+        font-size: 0.75em;
+        min-height: 55px;
+    }
 }
