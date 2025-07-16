@@ -16,7 +16,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     width: 95%;
-    max-width: 1200px;
+    max-width: 1400px; /* Aumentar el ancho máximo para acomodar 10 ciclos */
 }
 
 header {
@@ -60,77 +60,70 @@ header h1 {
     transition: width 0.5s ease-in-out;
 }
 
-/* **CAMBIOS PRINCIPALES APLICADOS AQUÍ PARA LA ESTRUCTURA** */
+/* --- NUEVOS ESTILOS PARA LA ESTRUCTURA DE LA MALLA --- */
 #curriculum-grid {
-    display: flex; /* Usamos flexbox para los años */
-    flex-direction: column; /* Apilar años verticalmente */
-    gap: 30px; /* Espacio entre los bloques de año */
+    display: grid;
+    /* 10 columnas para los ciclos, y la primera columna es para el año si la tuvieramos, pero aquí es solo para ciclos */
+    grid-template-columns: repeat(10, 1fr); /* Cada ciclo ocupa 1 fracción del espacio */
+    gap: 10px; /* Espacio entre columnas */
+    padding-bottom: 20px; /* Espacio al final de la malla */
+    overflow-x: auto; /* Permite desplazamiento horizontal si la malla es muy ancha */
 }
 
-.year-block {
-    margin-top: 20px;
+.cycles-header {
+    grid-column: 1 / -1; /* Ocupa todas las columnas de la cuadrícula */
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px;
     margin-bottom: 15px;
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #1a2a4b;
-    text-align: left;
-    padding-left: 10px;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
 }
 
-.semesters-in-year-container {
-    display: flex; /* Usamos flexbox para los semestres dentro de un año */
-    gap: 20px; /* Espacio entre los bloques de semestre */
-    flex-wrap: wrap; /* Permitir que los semestres se envuelvan a la siguiente línea si no caben */
-    justify-content: flex-start; /* Alinear los semestres al inicio */
-}
-
-.semester-container {
-    flex: 1; /* Permitir que cada semestre ocupe el espacio disponible */
-    min-width: 200px; /* Ancho mínimo para cada bloque de semestre */
-    max-width: 250px; /* Ancho máximo para cada bloque de semestre, similar al de la imagen */
-    padding: 15px;
-    background-color: #f0f0f0; /* Fondo ligero para cada bloque de semestre */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.semester-title {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+.cycle-title {
+    background-color: #f0f0f0; /* Fondo del título del ciclo */
+    padding: 10px 5px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
+    font-weight: bold;
+    font-size: 1.1em;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px;
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
 }
 
-.courses-container {
-    display: grid; /* Usamos grid para los cursos dentro de cada semestre */
-    grid-template-columns: 1fr; /* Una columna por defecto */
-    gap: 10px; /* Espacio entre los cursos */
+.courses-row {
+    display: contents; /* Esto permite que los hijos de .courses-row se coloquen directamente en la cuadrícula principal */
 }
+
+.course-card-wrapper {
+    /* Este wrapper es el que se coloca en la columna correcta del grid principal */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Alinear arriba dentro de su celda */
+    padding: 5px 0; /* Espacio vertical entre los cursos dentro de la misma "fila" visual */
+    /* background-color: #f9f9f9;  Opcional: para visualizar las celdas de la cuadrícula */
+}
+
 
 .course-card {
     background-color: #e0f2f7; /* Light blue default, similar to your image */
     border: 1px solid #b3e5fc;
     border-radius: 6px;
-    padding: 10px; /* Reducido para que quepan más */
+    padding: 10px;
     text-align: center;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    width: auto; /* Ajuste automático dentro del grid */
-    min-height: 70px; /* Reducido para que quepan más */
+    width: 90%; /* Ocupa casi todo el ancho de su columna/wrapper */
+    min-height: 60px; /* Altura mínima para uniformidad */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    font-size: 0.85em; /* Reducido un poco la fuente */
+    font-size: 0.8em; /* Tamaño de fuente más pequeño para caber más texto */
     line-height: 1.2;
     font-weight: bold;
     position: relative;
+    box-sizing: border-box; /* Incluye padding y border en el width/height */
 }
 
 .course-card:hover:not(.locked) {
@@ -215,48 +208,36 @@ header h1 {
 .legend .status-locked { background-color: #eeeeee; }
 
 /* Responsive adjustments */
-@media (max-width: 900px) {
-    .semesters-in-year-container {
-        flex-direction: column; /* Apilar los semestres verticalmente en pantallas más pequeñas */
-        align-items: center; /* Centrar los bloques de semestre */
+@media (max-width: 1200px) {
+    #curriculum-grid {
+        grid-template-columns: repeat(5, 1fr); /* 5 columnas en pantallas medianas */
     }
-
-    .semester-container {
-        min-width: 90%; /* Hacer que los bloques de semestre sean más anchos */
-        max-width: 90%;
+    .cycles-header {
+        grid-template-columns: repeat(5, 1fr);
     }
 }
 
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
+@media (max-width: 900px) {
+    #curriculum-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columnas en pantallas más pequeñas */
     }
-
-    header h1 {
-        font-size: 1.8em;
+    .cycles-header {
+        grid-template-columns: repeat(3, 1fr);
     }
+}
 
-    .year-block {
-        font-size: 1.5em;
+@media (max-width: 600px) {
+    #curriculum-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en móviles */
     }
-
-    .semester-title {
-        font-size: 1.1em;
+    .cycles-header {
+        grid-template-columns: repeat(2, 1fr);
     }
-
     .course-card {
-        font-size: 0.8em;
-        min-height: 60px;
+        font-size: 0.7em;
+        min-height: 50px;
     }
-
     .legend ul {
         grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .course-card {
-        font-size: 0.75em;
-        min-height: 55px;
     }
 }
