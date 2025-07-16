@@ -8,10 +8,61 @@
 </head>
 <body>
     <div class="container">
-        <h1>Malla Curricular Medicina Veterinaria - Plan 2024</h1>
-        <div id="malla-curricular">
+        <header>
+            <h1>MALLA CURRICULAR - MEDICINA VETERINARIA</h1>
+            <div class="progress-bar-container">
+                <div class="progress-text">Progreso: <span id="progress-percentage">0%</span></div>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
             </div>
+        </header>
+
+        <main id="curriculum-grid">
+            <div class="cycles-header">
+                <div class="cycle-title">CICLO I</div>
+                <div class="cycle-title">CICLO II</div>
+                <div class="cycle-title">CICLO III</div>
+                <div class="cycle-title">CICLO IV</div>
+                <div class="cycle-title">CICLO V</div>
+                <div class="cycle-title">CICLO VI</div>
+                <div class="cycle-title">CICLO VII</div>
+                <div class="cycle-title">CICLO VIII</div>
+                <div class="cycle-title">CICLO IX</div>
+                <div class="cycle-title">CICLO X</div>
+            </div>
+
+            <div class="courses-row" id="course-row-1"></div>
+            <div class="courses-row" id="course-row-2"></div>
+            <div class="courses-row" id="course-row-3"></div>
+            <div class="courses-row" id="course-row-4"></div>
+            <div class="courses-row" id="course-row-5"></div>
+            <div class="courses-row" id="course-row-6"></div>
+            <div class="courses-row" id="course-row-7"></div>
+            <div class="courses-row" id="course-row-8"></div>
+            <div class="courses-row" id="course-row-9"></div>
+            <div class="courses-row" id="course-row-10"></div>
+            <div class="courses-row" id="course-row-11"></div>
+            </main>
+
+        <aside class="legend">
+            <h2>Leyenda</h2>
+            <ul>
+                <li class="category-humanidades">Humanidades</li>
+                <li class="category-politica-gestion">Política y Gestión Educativas</li>
+                <li class="category-familia-acompanamiento">Familia y Acompañamiento Integral de la Persona</li>
+                <li class="category-practica">Práctica</li>
+                <li class="category-fundamentos">Fundamentos de la educación</li>
+                <li class="category-investigacion">Investigación</li>
+                <li class="category-curriculo-didactica">Currículo y Didáctica</li>
+                <li class="category-electivo">Electivo</li>
+                <li class="status-approved">Aprobado</li>
+                <li class="status-unapproved">No Aprobado</li>
+                <li class="status-locked">Bloqueado (Prerrequisito)</li>
+            </ul>
+        </aside>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
